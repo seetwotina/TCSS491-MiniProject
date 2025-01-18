@@ -11,6 +11,7 @@ class GameEngine {
 
         // Information on the input
         this.click = null;
+        this.move = null;
         this.mouse = null;
         this.wheel = null;
         this.keys = {};
@@ -37,43 +38,45 @@ class GameEngine {
     };
 
     startInput() {
-        const getXandY = e => ({
-            x: e.clientX - this.ctx.canvas.getBoundingClientRect().left,
-            y: e.clientY - this.ctx.canvas.getBoundingClientRect().top
-        });
-        
-        this.ctx.canvas.addEventListener("mousemove", e => {
-            if (this.options.debugging) {
-                console.log("MOUSE_MOVE", getXandY(e));
-            }
-            this.mouse = getXandY(e);
-        });
+        var getXandY = function (e) {
+            var x = e.clientX - that.ctx.canvas.getBoundingClientRect().left;
+            var y = e.clientY - that.ctx.canvas.getBoundingClientRect().top;
 
-        this.ctx.canvas.addEventListener("click", e => {
-            if (this.options.debugging) {
-                console.log("CLICK", getXandY(e));
-            }
-            this.click = getXandY(e);
-        });
+            return { x: x , y: y };
+        }
 
-        this.ctx.canvas.addEventListener("wheel", e => {
-            if (this.options.debugging) {
-                console.log("WHEEL", getXandY(e), e.wheelDelta);
-            }
-            e.preventDefault(); // Prevent Scrolling
-            this.wheel = e;
-        });
+        var that = this;
 
-        this.ctx.canvas.addEventListener("contextmenu", e => {
-            if (this.options.debugging) {
-                console.log("RIGHT_CLICK", getXandY(e));
-            }
-            e.preventDefault(); // Prevent Context Menu
-            this.rightclick = getXandY(e);
-        });
+        this.ctx.canvas.addEventListener("mousemove", (e) => {
+            that.move = getXandY(e);
+        }, false);
 
-        this.ctx.canvas.addEventListener("keydown", event => this.keys[event.key] = true);
-        this.ctx.canvas.addEventListener("keyup", event => this.keys[event.key] = false);
+        this.ctx.canvas.addEventListener("mousedown", (e) => {
+            that.down = true;
+
+            // Check if the swatter was clicked and start dragging
+            that.entities.forEach(entity => {
+                if (entity instanceof Swatter) {
+                    entity.startDragging(e.clientX, e.clientY);
+                }
+            });
+
+            console.log("Mouse Down");  // Check if this is firing
+        }, false);
+
+        this.ctx.canvas.addEventListener("mouseup", (e) => {
+            that.down = false;
+
+            // Stop dragging
+            that.entities.forEach(entity => {
+                if (entity instanceof Swatter) {
+                    entity.stopDragging();
+                }
+            });
+
+            console.log("Mouse Up");  // Check if this is firing
+        }, false);
+
     };
 
     addEntity(entity) {
