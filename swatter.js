@@ -1,8 +1,6 @@
 class Swatter {
-	constructor(game, fly) {
+	constructor(game) {
 		this.game = game;
-		this.fly = fly;
-
 		this.x = 500; // Initial x position
 		this.y = 275; // Initial y position
 		this.isDragging = false; // Flag for dragging
