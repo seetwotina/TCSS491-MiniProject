@@ -77,6 +77,18 @@ class GameEngine {
             console.log("Mouse Up");  // Check if this is firing
         }, false);
 
+        this.ctx.canvas.addEventListener("keydown", (e) => {
+            that.down = true;
+
+            // Checked if space is pressed.
+            that.entities.forEach(entity => {
+                if (entity instanceof Swatter && entity.isDragging && e.key === " ") {
+                    entity.startSpace()
+                    console.log("Space Pressed");  // Check if this is firing
+                }
+            });
+        }, false);
+
     };
 
     addEntity(entity) {

@@ -6,6 +6,8 @@ class Swatter {
 		this.isDragging = false; // Flag for dragging
 		this.offsetX = 0; // Mouse offset when dragging
 		this.offsetY = 0; // Mouse offset when dragging
+
+		this.isPressed = false;
 	};
 
 	update() {
@@ -16,12 +18,11 @@ class Swatter {
 	};
 
 	draw(ctx) {
-		//this.animator.drawFrame(this.game.clockTick, ctx, this.x, this.y);
 		ctx.drawImage(ASSET_MANAGER.getAsset("./hand.png"),this.x,this.y)
 	};
 
 	startDragging(mouseX, mouseY) {
-		if (mouseX >= this.x && mouseX <= this.x + 325 && mouseY >= this.y && mouseY <= this.y + 325) {
+		if (mouseX >= this.x && mouseX <= this.x + 325 && mouseY >= this.y && mouseY <= this.y + 350) {
 			this.isDragging = true;
 			this.offsetX = mouseX - this.x;
 			this.offsetY = mouseY - this.y;
@@ -30,7 +31,11 @@ class Swatter {
 
 	stopDragging() {
 		this.isDragging = false;
-		this.x = 500;
-		this.y = 275;
+	};
+
+	startSpace() {
+		if (this.isDragging) {
+			this.isPressed = true;
+		}
 	};
 }
