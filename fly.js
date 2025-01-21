@@ -6,6 +6,7 @@ class Fly {
 		this.x = Math.random() * 500;
 		this.y = Math.random() * 400;
 		this.speed = 100;
+		this.isSquashed = false;
 	};
 
 	update() {
