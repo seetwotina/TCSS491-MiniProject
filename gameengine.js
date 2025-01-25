@@ -78,13 +78,25 @@ class GameEngine {
         }, false);
 
         this.ctx.canvas.addEventListener("keydown", (e) => {
-            that.down = true;
+            that.keys[e.key] = true;
 
             // Checked if space is pressed.
             that.entities.forEach(entity => {
                 if (entity instanceof Swatter && entity.isDragging && e.key === " ") {
                     entity.startSpace()
                     console.log("Space Pressed");  // Check if this is firing
+                }
+            });
+        }, false);
+
+        this.ctx.canvas.addEventListener("keyup", (e) => {
+            that.keys[e.key] = false;
+
+            // Checked if space is pressed.
+            that.entities.forEach(entity => {
+                if (entity instanceof Swatter && entity.isDragging && e.key === " ") {
+                    entity.stopSpace()
+                    console.log("Space Released");  // Check if this is firing
                 }
             });
         }, false);
@@ -116,11 +128,28 @@ class GameEngine {
             }
         }
 
+        // Check for swatting
+
+            let swatter = this.entities.find(e=> e instanceof Swatter);
+            if (swatter && this.keys[" "]) {
+                let swatCircle = swatter.getBoundingCircle();
+
+                this.entities = this.entities.filter(entity => {
+                    if (entity instanceof Fly && isColliding(swatCircle, entity.getBoundingCircle())) {
+                        console.log("Fly Swatted!");
+                        return false;
+                    }
+                    return true;
+                })
+            }
+
+
         for (let i = this.entities.length - 1; i >= 0; --i) {
             if (this.entities[i].removeFromWorld) {
                 this.entities.splice(i, 1);
             }
         }
+
     };
 
     loop() {

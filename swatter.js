@@ -8,6 +8,7 @@ class Swatter {
 		this.offsetY = 0; // Mouse offset when dragging
 
 		this.isPressed = false;
+		this.radius = 60;
 	};
 
 	update() {
@@ -17,8 +18,23 @@ class Swatter {
 		}
 	};
 
+	getBoundingCircle() {
+		return {
+			x : this.x + 110,
+			y: this.y + 160,
+			radius: this.radius
+		};
+	};
+
 	draw(ctx) {
 		ctx.drawImage(ASSET_MANAGER.getAsset("./hand.png"),this.x,this.y)
+
+		// Draw bounding circle
+		ctx.beginPath();
+		let circle = this.getBoundingCircle();
+		ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
+		ctx.strokeStyle = "red"; // Make circle visible
+		ctx.stroke();
 	};
 
 	startDragging(mouseX, mouseY) {
@@ -36,6 +52,12 @@ class Swatter {
 	startSpace() {
 		if (this.isDragging) {
 			this.isPressed = true;
+		}
+	};
+
+	stopSpace() {
+		if (this.isDragging) {
+			this.isPressed = false;
 		}
 	};
 }
