@@ -31,10 +31,10 @@ class Fly {
 		//ctx.drawImage(ASSET_MANAGER.getAsset("./PngItem_2222200.png"),0,0)
 
 		// Draw bounding circle
-		ctx.beginPath();
-		let circle = this.getBoundingCircle();
-		ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
-		ctx.strokeStyle = "red"; // Make circle visible
-		ctx.stroke();
+		// ctx.beginPath();
+		// let circle = this.getBoundingCircle();
+		// ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
+		// ctx.strokeStyle = "red"; // Make circle visible
+		// ctx.stroke();
 	};
 }

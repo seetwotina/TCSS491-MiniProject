@@ -29,12 +29,12 @@ class Swatter {
 	draw(ctx) {
 		ctx.drawImage(ASSET_MANAGER.getAsset("./hand.png"),this.x,this.y)
 
-		// Draw bounding circle
-		ctx.beginPath();
-		let circle = this.getBoundingCircle();
-		ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
-		ctx.strokeStyle = "red"; // Make circle visible
-		ctx.stroke();
+		// // Draw bounding circle
+		// ctx.beginPath();
+		// let circle = this.getBoundingCircle();
+		// ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
+		// ctx.strokeStyle = "red"; // Make circle visible
+		// ctx.stroke();
 	};
 
 	startDragging(mouseX, mouseY) {
