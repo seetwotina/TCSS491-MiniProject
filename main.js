@@ -10,7 +10,7 @@ ASSET_MANAGER.downloadAll(() => {
 	const ctx = canvas.getContext("2d");
 	ctx.imageSmoothingEnabled = false;
 
-	gameEngine.addEntity(new Fly(gameEngine));
+	gameEngine.addEntity(new FlySpawner(gameEngine, 10, 1500));
 	gameEngine.addEntity(new Swatter(gameEngine));
 
 	gameEngine.init(ctx);

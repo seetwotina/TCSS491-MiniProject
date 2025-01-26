@@ -1,27 +1,35 @@
 class FlySpawner {
-	constructor(game, numFlies) {
+	constructor(game, numFlies, spawnInterval) {
 		this.game = game;
-		this.flies = [];
 		this.numFlies = numFlies;
+		this.spawnInterval = spawnInterval;
+		this.currentFlies = 0;
+		this.startSpawning();
+	};
 
-		this.spawnFlies();
+	startSpawning() {
+		setInterval(() => {
+			if (this.currentFlies < this.numFlies) {
+				this.spawnFlies()
+			}
+		}, this.spawnInterval);
 	};
 
 	spawnFlies() {
-		for (let i = 0; i < this.numFlies; i++) {
-			let fly = new Fly(this.game);
-			fly.x = Math.random() * 500;
-			fly.y = Math.random() * 400;
-			fly.speed = 30 + Math.random() * 50;
-			this.flies.push(fly);
+		let fly = new Fly(this.game);
+		this.game.addEntity(fly);
+		this.currentFlies++;
+
+		fly.isSquashed = () => {
+			this.currentFlies--;
 		}
 	};
 
 	update() {
-		this.flies.forEach(fly => fly.update());
+
 	};
 
-	draw(ctx) {
-		this.flies.forEach(fly => fly.draw(ctx));
+	draw() {
+
 	};
 }
