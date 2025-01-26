@@ -8,7 +8,7 @@ class Swatter {
 		this.offsetY = 0; // Mouse offset when dragging
 
 		this.isPressed = false;
-		this.radius = 40;
+		this.radius = 20;
 	};
 
 	update() {
@@ -29,7 +29,7 @@ class Swatter {
 	draw(ctx) {
 		ctx.drawImage(ASSET_MANAGER.getAsset("./hand.png"),this.x,this.y)
 
-		// // Draw bounding circle
+		// Draw bounding circle
 		// ctx.beginPath();
 		// let circle = this.getBoundingCircle();
 		// ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
