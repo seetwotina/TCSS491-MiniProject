@@ -8,7 +8,7 @@ class Swatter {
 		this.offsetY = 0; // Mouse offset when dragging
 
 		this.isPressed = false;
-		this.radius = 60;
+		this.radius = 40;
 	};
 
 	update() {
