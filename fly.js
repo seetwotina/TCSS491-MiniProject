@@ -12,7 +12,7 @@ class Fly {
 
 	update() {
 		this.x += this.speed*this.game.clockTick;
-		if(this.x > 500) {
+		if(this.x > 700) {
 			this.x = Math.random() * 500;
 			this.y = Math.random() * 500;
 		}
